@@ -12,3 +12,7 @@ class VehicleAction(ABC):
     @abstractmethod
     def brake(self):
         pass
+
+    @abstractmethod
+    def stop(self):
+        pass
