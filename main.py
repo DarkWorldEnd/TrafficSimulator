@@ -20,11 +20,13 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.tiempo = 0  
         self.ciclo_duracion = 15 + 7 + 22
 
-   
         self.auto1_pos_x = 50  
-        self.auto2_pos_y = 700 
+        self.auto2_pos_y = 700
 
-  
+        self.auto1_debe_seguir = False  
+        self.auto2_debe_seguir = False  
+
+        # Inicialización de las imágenes de los autos
         self.auto1 = QtWidgets.QLabel(parent=self.centralwidget)
         self.auto1.setGeometry(QtCore.QRect(self.auto1_pos_x, 350, 40, 40))
         self.auto1.setPixmap(QtGui.QPixmap("./img/auto.jpg"))
@@ -48,38 +50,53 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
     def cambiar_semaforo(self):
         ciclo_actual = self.tiempo % self.ciclo_duracion 
 
-        if ciclo_actual < 15:  
+        if ciclo_actual < 15: 
             self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/v.jpg"))  
             self.semaforo2.setPixmap(QtGui.QPixmap("./ui_views\\../img/r.jpg"))  
 
+            self.auto1_debe_seguir = False 
             self.mover_auto1()  
             
-        elif ciclo_actual < 15 + 7: 
-            self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/a.jpg")) 
+        elif ciclo_actual < 15 + 7:
+            self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/a.jpg"))  
             self.semaforo2.setPixmap(QtGui.QPixmap("./ui_views\\../img/r.jpg"))  
+            self.verificar_auto1() 
+            self.mover_auto1()
 
-        elif ciclo_actual <  22 + 15:  
-            self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/r.jpg")) 
-            self.semaforo2.setPixmap(QtGui.QPixmap("./ui_views\\../img/v.jpg")) 
-            self.mover_auto2() 
+        elif ciclo_actual < 22 + 15: 
+            self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/r.jpg"))  
+            self.semaforo2.setPixmap(QtGui.QPixmap("./ui_views\\../img/v.jpg"))  
 
-        else:  
+            self.auto2_debe_seguir = False  
+            self.mover_auto2()
+
+        else:  # Semáforo en amarillo para auto2
             self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/r.jpg"))  
             self.semaforo2.setPixmap(QtGui.QPixmap("./ui_views\\../img/a.jpg"))  
+            self.verificar_auto2()  
+            self.mover_auto2()
+
         self.tiempo += 1
 
+    def verificar_auto1(self):
+        if 200 <= self.auto1_pos_x <= 700:
+            self.auto1_debe_seguir = True  
 
-    def mover_auto1(self):
-        
-        if self.auto1_pos_x < 2000:  
-            self.auto1_pos_x += 30
-            self.auto1.move(self.auto1_pos_x, 350)
+    def verificar_auto2(self):
+        if 220 <= self.auto2_pos_y <= 500:
+            self.auto2_debe_seguir = True  
+
+    def mover_auto1(self):  
+        if self.semaforo1.pixmap().cacheKey() == QtGui.QPixmap("./ui_views\\../img/v.jpg").cacheKey() or self.auto1_debe_seguir:
+            if self.auto1_pos_x < 2000: 
+                self.auto1_pos_x += 30
+                self.auto1.move(self.auto1_pos_x, 350)
 
     def mover_auto2(self):
-        
-        if self.auto2_pos_y > 300: 
-            self.auto2_pos_y -= 30
-            self.auto2.move(500, self.auto2_pos_y)
+        if self.semaforo2.pixmap().cacheKey() == QtGui.QPixmap("./ui_views\\../img/v.jpg").cacheKey() or self.auto2_debe_seguir:
+            if self.auto2_pos_y > 80: 
+                self.auto2_pos_y -= 30
+                self.auto2.move(500, self.auto2_pos_y)
 
     def rotar_imagen(self, pixmap, angulo):
         transform = QtGui.QTransform()
