@@ -20,8 +20,8 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.tiempo = 0  
         self.ciclo_duracion = 15 + 7 + 22
 
-        self.auto1_pos_x = 50  
-        self.auto2_pos_y = 700
+        self.auto1_pos_x = 100  
+        self.auto2_pos_y = 600
 
         self.auto1_debe_seguir = False  
         self.auto2_debe_seguir = False  
@@ -32,7 +32,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
 
         # Inicialización de las imágenes de los autos
         self.auto1 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.auto1.setGeometry(QtCore.QRect(self.auto1_pos_x, 350, 40, 40))
+        self.auto1.setGeometry(QtCore.QRect(self.auto1_pos_x, 350, 60, 60))
         
         self.auto1.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         pixmap = QtGui.QPixmap("./img/auto.png")
@@ -42,7 +42,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.auto1.setObjectName("auto1")
 
         self.auto2 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.auto2.setGeometry(QtCore.QRect(500, self.auto2_pos_y, 40, 40))
+        self.auto2.setGeometry(QtCore.QRect(500, self.auto2_pos_y, 60, 60))
 
         self.auto2.setStyleSheet("background-color: rgba(255, 255, 255, 0);")
         pixmap = QtGui.QPixmap("./img/auto.png")
@@ -114,7 +114,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
             self.auto2_debe_seguir = True  
 
     def mover_auto1(self):  
-        if self.semaforo1_verde or self.auto1_debe_seguir:  # Usamos la variable lógica para verificar el estado del semáforo
+        if self.semaforo1_verde or self.auto1_debe_seguir:  
             if self.auto1_pos_x < 850:  
                 self.auto1_pos_x += 60
             else:
@@ -122,7 +122,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
             self.auto1.move(self.auto1_pos_x, 350)
 
     def mover_auto2(self):
-        if self.semaforo2_verde or self.auto2_debe_seguir:  # Usamos la variable lógica para verificar el estado del semáforo
+        if self.semaforo2_verde or self.auto2_debe_seguir:  
             if self.auto2_pos_y > 40: 
                 self.auto2_pos_y -= 60
             else:
