@@ -31,7 +31,7 @@ class Ui_VistaPrincipal(object):
         self.btn_Detener.setGeometry(QtCore.QRect(520, 700, 93, 28))
         self.btn_Detener.setObjectName("btn_Detener")
         self.semaforo1 = QtWidgets.QLabel(parent=self.centralwidget)
-        self.semaforo1.setGeometry(QtCore.QRect(310, 420, 91, 111))
+        self.semaforo1.setGeometry(QtCore.QRect(310, 450, 91, 111))
         self.semaforo1.setText("")
         self.semaforo1.setPixmap(QtGui.QPixmap("./ui_views\\../img/v.jpg"))
         self.semaforo1.setScaledContents(True)
