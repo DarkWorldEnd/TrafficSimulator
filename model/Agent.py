@@ -1,3 +1,4 @@
+import threading
 from model.enumerate.Color import Color
 from model.TrafficLight import TrafficLight
 from model.Clock import Clock
@@ -41,9 +42,11 @@ class Agent:
         self.change_time = False
         self.clock = Clock()
         self.clock.add_agent(self)
+        
         self.green_time = 15
         self.yellow_time = 7
         self.count = 2
+        self.clock_status = True
 
     def change_color(self, traffic_light: TrafficLight, color: Color):
         traffic_light.color = color
@@ -61,28 +64,27 @@ class Agent:
             traffic_light._notify_vehicles()
         
         print("ERROR start_clock")
-        self.clock._start(time_stamp=self.green_time)
-        self.clock.label.start(1000)
+        threading.Thread(target=lambda: self.clock._start(self.green_time)).start()
 
     def _restart_clock(self):
         """Restarts the timer based on change_time property.
 
         Switches the timing between green and yellow lights.
         """
+        if not self.clock_status:
+            return
+        
         self.change_time = not self.change_time
         print(f"Agent {self.id} is restarting the clock")
         
         self._update_traffic_lights(self.current_traffic_lights)
         if self.change_time:
-            self.clock.label.timeout.connect(lambda: self.clock._start(self.yellow_time))
+            threading.Thread(target=lambda: self.clock._start(self.yellow_time)).start()
             print("ERROR _restart_clock if")
-            self.clock._start(time_stamp=self.yellow_time)
-            self.clock.label.start(1000)
+
         else:
             print("ERROR _restart_clock else")
-            self.clock.label.timeout.connect(lambda: self.clock._start(self.green_time))
-            self.clock._start(time_stamp=self.green_time)
-            self.clock.label.start(1000)
+            threading.Thread(target=lambda: self.clock._start(self.green_time)).start()
 
     
     def _check_clock_time(self):
@@ -90,7 +92,6 @@ class Agent:
 
         This method is called when the timer reaches zero, triggering a change in traffic lights.
         """
-        self.clock.label.stop()
         self._update_count_and_current_traffic_lights()
         self._restart_clock()
 

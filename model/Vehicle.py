@@ -11,11 +11,11 @@ class Vehicle(VehicleAction):
         self.traffic_light = None
         self.x = 0
         self.y = 0
+        self.delta = 15
         self.label = None
         self.direction = None
         self.rolling = False
         self.thread_roll = threading.Thread(target=self.roll)
-        self.thread_brake = threading.Thread(target=self.brake)
 
     def start(self):
         print(f"{self.license_plate} starting.")
@@ -23,40 +23,38 @@ class Vehicle(VehicleAction):
     def roll(self):
         print(f"{self.license_plate} rolling.")
         self.rolling = True
-        # TODO: Falta el debe seguir
         if (self.direction == Direction.EAST):
-            print("EAST", self.rolling)
             while self.rolling:
-                self.x = self.x + 60 if self.x < 850 else 50
+                self.x = self.x + self.delta if self.x < 850 else 50
                 self.label.move(self.x, 350)
-                time.sleep(0.5)
+                time.sleep(0.1)
+
+                if self.traffic_light.color == Color.YELLOW and (130 <= self.x <= 290):
+                    self.rolling = False
+                    
 
         elif (self.direction == Direction.NORTH):
-            print("NORTH", self.rolling)
             while self.rolling:
-                self.y = self.y - 60 if self.y > 40 else 700
+                self.y = self.y - self.delta if self.y > 40 else 700
                 self.label.move(500, self.y)           
-                time.sleep(0.5)
+                time.sleep(0.1)
 
-        print("Thread finished")
+                if self.traffic_light.color == Color.YELLOW and (500<= self.y <= 640):
+                    self.rolling = False
+
     
     def brake(self):
-        print
         if self.direction == Direction.EAST:
             if 200 <= self.x <= 700:
                 self.rolling = True
                 self.thread_roll = threading.Thread(target=self.roll)
                 self.thread_roll.start()
-            else:
-                self.rolling = False
 
         elif self.direction == Direction.NORTH:
             if 220 <= self.y <= 500:
                 self.rolling = True
                 self.thread_roll = threading.Thread(target=self.roll)
                 self.thread_roll.start()
-            else:
-                self.rolling = False
 
     def stop(self):
         self.rolling = False
