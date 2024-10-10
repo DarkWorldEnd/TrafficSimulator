@@ -1,10 +1,12 @@
-from enumerate.Color import Color
+from model.enumerate.Color import Color
+from PyQt5 import QtGui
 
 class TrafficLight:
     def __init__(self, id: str, color: Color):
         self.id = id
         self.color = color
         self.vehicles_observers = []
+        self.label = None
 
     def add_vehicle_observer(self, vehicle):
         self.vehicles_observers.append(vehicle)
@@ -19,13 +21,16 @@ class TrafficLight:
         match self.color:
             case Color.GREEN: 
                 self.color = Color.YELLOW
-                print(f"I am the traffic light {self.id}, Previous color: {Color.GREEN}, Current color: {self.color}")
+                self.label.setPixmap(QtGui.QPixmap("./img/a.jpg"))
+                # print(f"I am the traffic light {self.id}, Previous color: {Color.GREEN}, Current color: {self.color}")
             case Color.YELLOW: 
                 self.color = Color.RED
-                print(f"I am the traffic light {self.id}, Previous color: {Color.YELLOW}, Current color: {self.color}")
+                self.label.setPixmap(QtGui.QPixmap("./img/r.jpg"))
+                # print(f"I am the traffic light {self.id}, Previous color: {Color.YELLOW}, Current color: {self.color}")
             case Color.RED: 
                 self.color = Color.GREEN
-                print(f"I am the traffic light {self.id}, Previous color: {Color.RED}, Current color: {self.color}")
+                self.label.setPixmap(QtGui.QPixmap("./img/v.jpg"))
+                # print(f"I am the traffic light {self.id}, Previous color: {Color.RED}, Current color: {self.color}")
         self._notify_vehicles()
 
     def _notify_vehicles(self):

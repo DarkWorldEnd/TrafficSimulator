@@ -1,6 +1,6 @@
-from enumerate.Color import Color
-from TrafficLight import TrafficLight
-from Clock import Clock
+from model.enumerate.Color import Color
+from model.TrafficLight import TrafficLight
+from model.Clock import Clock
 from typing import List
 
 class Agent:
@@ -59,8 +59,10 @@ class Agent:
 
         for traffic_light in self.y_traffic_lights:
             traffic_light._notify_vehicles()
-            
-        self.clock._start(self.green_time)
+        
+        print("ERROR start_clock")
+        self.clock._start(time_stamp=self.green_time)
+        self.clock.label.start(1000)
 
     def _restart_clock(self):
         """Restarts the timer based on change_time property.
@@ -72,9 +74,15 @@ class Agent:
         
         self._update_traffic_lights(self.current_traffic_lights)
         if self.change_time:
-            self.clock._start(self.yellow_time)
+            self.clock.label.timeout.connect(lambda: self.clock._start(self.yellow_time))
+            print("ERROR _restart_clock if")
+            self.clock._start(time_stamp=self.yellow_time)
+            self.clock.label.start(1000)
         else:
-            self.clock._start(self.green_time)
+            print("ERROR _restart_clock else")
+            self.clock.label.timeout.connect(lambda: self.clock._start(self.green_time))
+            self.clock._start(time_stamp=self.green_time)
+            self.clock.label.start(1000)
 
     
     def _check_clock_time(self):
@@ -82,6 +90,7 @@ class Agent:
 
         This method is called when the timer reaches zero, triggering a change in traffic lights.
         """
+        self.clock.label.stop()
         self._update_count_and_current_traffic_lights()
         self._restart_clock()
 
