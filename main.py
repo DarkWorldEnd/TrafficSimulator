@@ -57,6 +57,9 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         )
         self.auto2.direction = Direction.NORTH
 
+
+
+
         aux = self.semaforo1
         self.semaforo1 = TrafficLight("TL-x", Color.GREEN)
         self.semaforo1.label = aux
