@@ -9,6 +9,7 @@ class Vehicle(VehicleAction):
     def __init__(self, license_plate: str):
         self.license_plate = license_plate
         self.traffic_light = None
+        self.traffic_arrow = None
         self.x = 0
         self.y = 0
         self.delta = 15
@@ -29,7 +30,7 @@ class Vehicle(VehicleAction):
                 self.label.move(self.x, 350)
                 time.sleep(0.1)
 
-                if self.traffic_light.color == Color.YELLOW and (130 <= self.x <= 290):
+                if self.traffic_light.color == Color.YELLOW and (130 <= self.x <= 290) or self.traffic_arrow.color == Color.YELLOW or self.traffic_arrow.color == Color.RED:
                     self.rolling = False
                     
 
@@ -39,7 +40,7 @@ class Vehicle(VehicleAction):
                 self.label.move(500, self.y)           
                 time.sleep(0.1)
 
-                if self.traffic_light.color == Color.YELLOW and (500<= self.y <= 640):
+                if self.traffic_light.color == Color.YELLOW and (500<= self.y <= 640) or self.traffic_arrow.color == Color.YELLOW or self.traffic_arrow.color == Color.RED:
                     self.rolling = False
 
     

@@ -1,6 +1,5 @@
 from model.enumerate.Color import Color
 from PyQt5 import QtGui
-
 class TrafficLight:
     def __init__(self, id: str, color: Color):
         self.id = id
@@ -11,6 +10,10 @@ class TrafficLight:
     def add_vehicle_observer(self, vehicle):
         self.vehicles_observers.append(vehicle)
         vehicle.traffic_light = self
+
+    def add_vehicle_observer_arrow(self, vehicle):
+        self.vehicles_observers.append(vehicle)
+        vehicle.traffic_arrow = self
 
     def next_color(self):
         """Changes the color of the traffic light to the next state.
@@ -38,10 +41,16 @@ class TrafficLight:
             case Color.GREEN: 
                 self.color = Color.RED
                 self.label.setPixmap(QtGui.QPixmap("./img/fr.jpg"))
+                
+            case Color.YELLOW: 
+                self.color = Color.RED
+                self.label.setPixmap(QtGui.QPixmap("./img/fr.jpg"))
 
             case Color.RED: 
                 self.color = Color.GREEN
                 self.label.setPixmap(QtGui.QPixmap("./img/fv.jpg"))
+
+
         self._notify_vehicles()
 
     def _notify_vehicles(self):

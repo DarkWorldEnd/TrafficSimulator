@@ -66,10 +66,22 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.semaforo2 = TrafficLight("TL-Y", Color.RED)
         self.semaforo2.label = aux
 
+
+        aux=self.flecha1
+        self.flecha1=TrafficLight("TLA-X", Color.GREEN)
+        self.flecha1.label=aux
+
+        aux=self.flecha2
+        self.flecha2=TrafficLight("TLA-Y", Color.RED)
+        self.flecha2.label=aux
+
         self.semaforo1.add_vehicle_observer(self.auto1)
         self.semaforo2.add_vehicle_observer(self.auto2)
 
-        self.agent = Agent("Agent 1", [self.semaforo1], [self.semaforo2])
+        self.flecha1.add_vehicle_observer_arrow(self.auto1)
+        self.flecha2.add_vehicle_observer_arrow(self.auto2)
+
+        self.agent = Agent("Agent 1", [self.semaforo1], [self.semaforo2],[self.flecha1],[self.flecha2])
 
     def begin(self):
         self.agent.start_clock()

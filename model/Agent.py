@@ -26,6 +26,8 @@ class Agent:
             self, id: str, 
             x_traffic_lights: List[TrafficLight], 
             y_traffic_lights: List[TrafficLight],
+            x_arrow: List[TrafficLight],
+            y_arrow:  List[TrafficLight]
         ):
         """Initializes a new agent.
 
@@ -37,8 +39,11 @@ class Agent:
         self.id = id
         self.x_traffic_lights = x_traffic_lights
         self.y_traffic_lights = y_traffic_lights
+        self.x_arrow=x_arrow
+        self.y_arrow=y_arrow
 
         self.current_traffic_lights = self.x_traffic_lights
+        self.current_arrow=self.x_arrow
         self.change_time = False
         self.clock = Clock()
         self.clock.add_agent(self)
@@ -77,7 +82,7 @@ class Agent:
         self.change_time = not self.change_time
         print(f"Agent {self.id} is restarting the clock")
         
-        self._update_traffic_lights(self.current_traffic_lights)
+        self._update_traffic_lights(self.current_traffic_lights,self.current_arrow)
         if self.change_time:
             threading.Thread(target=lambda: self.clock._start(self.yellow_time)).start()
             print("ERROR _restart_clock if")
@@ -85,6 +90,7 @@ class Agent:
         else:
             print("ERROR _restart_clock else")
             threading.Thread(target=lambda: self.clock._start(self.green_time)).start()
+            
 
     
     def _check_clock_time(self):
@@ -108,17 +114,19 @@ class Agent:
             print("CHANGING TRAFFIC LIGHTS")
             print("="*100)
             self.count = 2
-            self._update_traffic_lights(self.current_traffic_lights)
+            self._update_traffic_lights(self.current_traffic_lights,self.current_arrow)
 
             if self.current_traffic_lights == self.x_traffic_lights:
                 print(f"I am the agent {self.id}, I am going to change current traffic lights to Y-axis")
                 self.current_traffic_lights = self.y_traffic_lights
+                self.current_arrow = self.y_arrow
             else:
                 print(f"I am the agent {self.id}, I am going to change current traffic lights to X-axis")
                 self.current_traffic_lights = self.x_traffic_lights
+                self.current_arrow = self.x_arrow
             print("")
 
-    def _update_traffic_lights(self, traffic_lights: List[TrafficLight]):
+    def _update_traffic_lights(self, traffic_lights: List[TrafficLight], arrows: List[TrafficLight]):
         """Updates the color of the specified traffic lights.
 
         Args:
@@ -126,3 +134,7 @@ class Agent:
         """
         for traffic_light in traffic_lights:
             traffic_light.next_color()
+
+
+        for arrow in arrows:
+            arrow.next_arrow()
