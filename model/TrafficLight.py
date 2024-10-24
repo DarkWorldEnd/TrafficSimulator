@@ -41,10 +41,6 @@ class TrafficLight:
             case Color.GREEN: 
                 self.color = Color.RED
                 self.label.setPixmap(QtGui.QPixmap("./img/fr.jpg"))
-                
-            case Color.YELLOW: 
-                self.color = Color.RED
-                self.label.setPixmap(QtGui.QPixmap("./img/fr.jpg"))
 
             case Color.RED: 
                 self.color = Color.GREEN

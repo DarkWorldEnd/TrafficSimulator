@@ -137,4 +137,5 @@ class Agent:
 
 
         for arrow in arrows:
-            arrow.next_arrow()
+            if traffic_light.color== Color.YELLOW or traffic_light.color == Color.GREEN:
+                arrow.next_arrow()
