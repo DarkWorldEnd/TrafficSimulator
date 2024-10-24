@@ -33,6 +33,17 @@ class TrafficLight:
                 
         self._notify_vehicles()
 
+    def next_arrow(self):
+        match self.color:
+            case Color.GREEN: 
+                self.color = Color.RED
+                self.label.setPixmap(QtGui.QPixmap("./img/fr.jpg"))
+
+            case Color.RED: 
+                self.color = Color.GREEN
+                self.label.setPixmap(QtGui.QPixmap("./img/fv.jpg"))
+        self._notify_vehicles()
+
     def _notify_vehicles(self):
         """Notifies all vehicles that are observing the traffic light.
 

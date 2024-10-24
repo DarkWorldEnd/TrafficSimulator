@@ -60,9 +60,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         aux = self.semaforo1
         self.semaforo1 = TrafficLight("TL-x", Color.GREEN)
         self.semaforo1.label = aux
-        self.semaforo1.label.setPixmap(
-            self.rotar_imagen(QtGui.QPixmap("./img/v.jpg"), 90)
-        )
+        
 
         aux = self.semaforo2
         self.semaforo2 = TrafficLight("TL-Y", Color.RED)
