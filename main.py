@@ -7,8 +7,10 @@ from PyQt5.QtCore import QTimer
 from model.enumerate.Direction import Direction
 from model.enumerate.Color import Color
 from model.Agent import Agent
+from model.Pedestrian_Agent import Pedestrian_Agent
 from model.Vehicle import Vehicle
 from model.TrafficLight import TrafficLight
+from model.Pedestrian_Light import Pedestrian_Light
 from view.Vista import Ui_VistaPrincipal
 
 
@@ -84,10 +86,28 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.flecha1.add_vehicle_observer_arrow(self.auto1)
         self.flecha2.add_vehicle_observer_arrow(self.auto2)
 
-        self.agent = Agent("Agent 1", [self.semaforo1], [self.semaforo2],[self.flecha1],[self.flecha2])
+        aux = self.peatonal1
+        self.peatonal1 = Pedestrian_Light("PL-X1", Color.GREEN)
+        self.peatonal1.label = aux
+
+        aux = self.peatonal3
+        self.peatonal3 = Pedestrian_Light("PL-X2", Color.GREEN)
+        self.peatonal3.label = aux
+
+        aux = self.peatonal4
+        self.peatonal4 = Pedestrian_Light("PL-Y1", Color.RED)
+        self.peatonal4.label = aux
+
+        aux = self.peatonal2
+        self.peatonal2 = Pedestrian_Light("PL-Y2", Color.RED)
+        self.peatonal2.label = aux
+
+        self.agent = Agent("Agent 1", [self.semaforo1], [self.semaforo2], [self.flecha1], [self.flecha2])
+        self.pd_agent = Pedestrian_Agent("Agent 2", [self.peatonal1, self.peatonal3], [self.peatonal2, self.peatonal4])
 
     def begin(self):
         self.agent.start_clock()
+        self.pd_agent.start_clock()
         self.auto1.rolling = True
         QMessageBox.information(self, "Iniciado", "El programa ha iniciado.")
 
@@ -95,13 +115,13 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.auto1.rolling = False
         self.auto2.rolling = False
         self.agent.clock_status = False
+        self.pd_agent.clock_status = False
         QMessageBox.information(self, "Detenido", "El programa se ha detenido.")
 
     def rotar_imagen(self, pixmap, angulo):
         transform = QtGui.QTransform()
         transform.rotate(angulo)
         return pixmap.transformed(transform, QtCore.Qt.TransformationMode.SmoothTransformation)
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

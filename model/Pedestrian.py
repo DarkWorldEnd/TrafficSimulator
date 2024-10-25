@@ -9,3 +9,6 @@ class Pedestrian(PedestrianAction):
 
     def wait(self):
         print(f"{self.name} is waiting.")
+
+    def _check_pedestrian_light(self):
+        pass

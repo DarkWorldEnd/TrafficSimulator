@@ -1,12 +1,12 @@
 from model.enumerate.Color import Color
 from PyQt5 import QtGui
 
-class Pedestrian_Ligh:
-    def __init__(self, id, color:Color):
+class Pedestrian_Light:
+    def __init__(self, id: str, color:Color):
         self.id= id
         self.color=color
         self.pedestrian_observers=[]
-        self.label
+        self.label = None
 
     def add_pedestrian_observer(self, pedestrian):
         self.pedestrian_observers.append(pedestrian)
@@ -16,18 +16,18 @@ class Pedestrian_Ligh:
         match self.color:
             case Color.GREEN: 
                 self.color = Color.RED
-                self.label.setPixmap(QtGui.QPixmap("./img/pr.jpg"))
+                self.label.setPixmap(QtGui.QPixmap("./img/pr.png"))
 
             case Color.RED: 
                 self.color = Color.GREEN
-                self.label.setPixmap(QtGui.QPixmap("./img/pv.jpg"))
+                self.label.setPixmap(QtGui.QPixmap("./img/pv.png"))
                 
         self._notify_pedestrian()
     
 
 
     def _notify_pedestrian(self):
-        """Notifies all vehicles that are observing the traffic light.
+        """Notifies all pedestrian that are observing the traffic light.
 
         This method is called when the traffic light changes color.
         """
