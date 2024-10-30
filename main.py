@@ -28,7 +28,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
 
         pixmap = QtGui.QPixmap("./img/auto.png")
         
-        self.auto1 = Vehicle("ABC123")
+        self.auto1 = Vehicle("CAR-X")
         self.auto1.direction = Direction.EAST
         self.auto1.x = 100
         self.auto1.label = QtWidgets.QLabel(parent=self.centralwidget)
@@ -42,7 +42,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         ))
         self.auto1.direction = Direction.EAST
 
-        self.auto2 = Vehicle("CAR-X")
+        self.auto2 = Vehicle("CAR-Y")
         self.auto2.direction = Direction.NORTH
         self.auto2.label = QtWidgets.QLabel(parent=self.centralwidget)
         self.auto2.y = 600
@@ -57,11 +57,7 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
         self.auto2.label.setPixmap(
             self.rotar_imagen(QtGui.QPixmap("./img/auto.png"), 270)
         )
-        self.auto2.direction = Direction.NORTH
-
-
-
-
+        
         aux = self.semaforo1
         self.semaforo1 = TrafficLight("TL-x", Color.GREEN)
         self.semaforo1.label = aux
@@ -108,12 +104,17 @@ class PrincipalController(QtWidgets.QMainWindow, Ui_VistaPrincipal):
     def begin(self):
         self.agent.start_clock()
         self.pd_agent.start_clock()
-        self.auto1.rolling = True
+        self.auto1.thread_roll.start()
+        self.auto2.thread_roll.start()
         QMessageBox.information(self, "Iniciado", "El programa ha iniciado.")
 
     def stop(self):
-        self.auto1.rolling = False
-        self.auto2.rolling = False
+        self.auto1.direction = None
+        self.auto1.traffic_light = None
+
+        self.auto2.direction = None
+        self.auto2.traffic_light = None
+        
         self.agent.clock_status = False
         self.pd_agent.clock_status = False
         QMessageBox.information(self, "Detenido", "El programa se ha detenido.")

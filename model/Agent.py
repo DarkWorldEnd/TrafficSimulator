@@ -68,7 +68,6 @@ class Agent:
         for traffic_light in self.y_traffic_lights:
             traffic_light._notify_vehicles()
         
-        print("ERROR start_clock")
         threading.Thread(target=lambda: self.clock._start(self.green_time)).start()
 
     def _restart_clock(self):
@@ -85,10 +84,8 @@ class Agent:
         self._update_traffic_lights(self.current_traffic_lights,self.current_arrow)
         if self.change_time:
             threading.Thread(target=lambda: self.clock._start(self.yellow_time)).start()
-            print("ERROR _restart_clock if")
 
         else:
-            print("ERROR _restart_clock else")
             threading.Thread(target=lambda: self.clock._start(self.green_time)).start()
             
 
