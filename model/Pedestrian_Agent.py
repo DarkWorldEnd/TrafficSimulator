@@ -20,7 +20,6 @@ class Pedestrian_Agent:
         self.clock_status = True
 
     def start_clock(self):
-        print(f"Agent {self.id} is starting the clock")
         threading.Thread(target=lambda: self.clock._start(self.green_time)).start()
 
     def _restart_clock(self):
@@ -29,7 +28,6 @@ class Pedestrian_Agent:
 
 
         self.change_time = not self.change_time
-        print(f"Agent {self.id} is restarting the clock")
 
 
         if self.change_time:
@@ -52,4 +50,3 @@ class Pedestrian_Agent:
                 traffic_light.nextColor()
             elif not to_red and traffic_light.color == Color.RED:
                 traffic_light.nextColor()
-            print(f"Pedestrian light {traffic_light.id} changed to {traffic_light.color.name}")

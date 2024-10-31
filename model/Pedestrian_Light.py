@@ -16,11 +16,11 @@ class Pedestrian_Light:
         match self.color:
             case Color.GREEN: 
                 self.color = Color.RED
-                self.label.setPixmap(QtGui.QPixmap("./img/pr.png"))
+                self.label.setPixmap(QtGui.QPixmap("./assets/Pedestrian_Light_Off.png"))
 
             case Color.RED: 
                 self.color = Color.GREEN
-                self.label.setPixmap(QtGui.QPixmap("./img/pv.png"))
+                self.label.setPixmap(QtGui.QPixmap("./assets/Pedestrian_Light_On.png"))
                 
         self._notify_pedestrian()
     

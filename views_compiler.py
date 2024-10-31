@@ -2,7 +2,7 @@ import os
 import subprocess
 
 def compile_ui_to_py(ui_path, output_path):
-    command = f"pyuic6 -o {output_path} {ui_path}"
+    command = f"pyuic5 -o {output_path} {ui_path}"
     subprocess.run(command, shell=True)
 
 def compile_folder(input_folder, output_folder):

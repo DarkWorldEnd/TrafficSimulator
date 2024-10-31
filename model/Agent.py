@@ -61,7 +61,6 @@ class Agent:
 
         This method begins the countdown for the green light duration.
         """
-        print(f"Agent {self.id} is starting the clock")
         for traffic_light in self.x_traffic_lights:
             traffic_light._notify_vehicles()
 
@@ -79,7 +78,6 @@ class Agent:
             return
         
         self.change_time = not self.change_time
-        print(f"Agent {self.id} is restarting the clock")
         
         self._update_traffic_lights(self.current_traffic_lights,self.current_arrow)
         if self.change_time:
@@ -105,23 +103,16 @@ class Agent:
         from X to Y axis or vice versa.
         """
         self.count -= 1
-        print(f"\nI am the agent {self.id} and my count is {self.count}")
         if self.count == 0:
-            print("="*100)
-            print("CHANGING TRAFFIC LIGHTS")
-            print("="*100)
             self.count = 2
             self._update_traffic_lights(self.current_traffic_lights,self.current_arrow)
 
             if self.current_traffic_lights == self.x_traffic_lights:
-                print(f"I am the agent {self.id}, I am going to change current traffic lights to Y-axis")
                 self.current_traffic_lights = self.y_traffic_lights
                 self.current_arrow = self.y_arrow
             else:
-                print(f"I am the agent {self.id}, I am going to change current traffic lights to X-axis")
                 self.current_traffic_lights = self.x_traffic_lights
                 self.current_arrow = self.x_arrow
-            print("")
 
     def _update_traffic_lights(self, traffic_lights: List[TrafficLight], arrows: List[TrafficLight]):
         """Updates the color of the specified traffic lights.
