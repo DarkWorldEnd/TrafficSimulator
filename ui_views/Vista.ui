@@ -33,7 +33,10 @@
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/via.jpg</pixmap>
+     <pixmap>../assets/Background.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_Iniciar">
@@ -71,10 +74,10 @@
    <widget class="QLabel" name="semaforo1">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>380</y>
-      <width>71</width>
-      <height>91</height>
+      <x>280</x>
+      <y>330</y>
+      <width>31</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -86,14 +89,17 @@
     <property name="scaledContents">
      <bool>true</bool>
     </property>
+    <property name="wordWrap">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QLabel" name="semaforo2">
     <property name="geometry">
      <rect>
-      <x>570</x>
-      <y>450</y>
-      <width>61</width>
-      <height>91</height>
+      <x>480</x>
+      <y>550</y>
+      <width>31</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -109,8 +115,8 @@
    <widget class="QLabel" name="flecha1">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>480</y>
+      <x>250</x>
+      <y>450</y>
       <width>61</width>
       <height>41</height>
      </rect>
@@ -147,17 +153,17 @@
    <widget class="QLabel" name="peatonal2">
     <property name="geometry">
      <rect>
-      <x>660</x>
-      <y>440</y>
-      <width>61</width>
-      <height>31</height>
+      <x>590</x>
+      <y>450</y>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/pr.png</pixmap>
+     <pixmap>../assets/Pedestrian_Light_Off.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -166,17 +172,17 @@
    <widget class="QLabel" name="peatonal3">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>205</y>
-      <width>61</width>
-      <height>31</height>
+      <x>590</x>
+      <y>140</y>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/pv.png</pixmap>
+     <pixmap>../assets/Pedestrian_Light_On.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -185,17 +191,17 @@
    <widget class="QLabel" name="peatonal4">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>370</x>
       <y>230</y>
-      <width>71</width>
-      <height>31</height>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/pr.png</pixmap>
+     <pixmap>../assets/Pedestrian_Light_Off.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -204,17 +210,17 @@
    <widget class="QLabel" name="peatonal1">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>490</y>
-      <width>61</width>
-      <height>41</height>
+      <x>370</x>
+      <y>510</y>
+      <width>40</width>
+      <height>40</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap>../img/pv.png</pixmap>
+     <pixmap>../assets/Pedestrian_Light_On.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
